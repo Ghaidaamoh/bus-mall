@@ -5,6 +5,9 @@ document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`
 let attempts = 0;
 let attemptsEl = document.getElementById('attempts');
 let bus = [];
+let busImagesNames = [];
+let busClicks = [];
+let busViews = [];
 function busImage(busName) {
 
     this.busName = busName.split('.')[0];
@@ -12,6 +15,7 @@ function busImage(busName) {
     this.clicks = 0;
     this.views = 0;
     bus.push(this);
+    busImagesNames.push(this.busName);
 }
 
 
@@ -40,19 +44,17 @@ function renderImg() {
     rightImgIndex = generateImage();
     rightImgIndex2 = generateImage();
 
-    if ( leftImgIndex ==  rightImgIndex && leftImgIndex == rightImgIndex2 )
- {
-    leftImgIndex = generateImage();
- }
- else if ( rightImgIndex ==  leftImgIndex &&  rightImgIndex ==  rightImgIndex2 )
- {
-    rightImgIndex = generateImage();
- }
- else if ( rightImgIndex2  == leftImgIndex  && rightImgIndex2 == rightImgIndex )
- {
-    rightImgIndex2 = generateImage();
- }
+    while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2) {
+        leftImgIndex = generateImage();
+      }
+      while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
+        rightImgIndex = generateImage();
     
+    }
+      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
+        rightImgIndex2 = generateImage();
+      }
+      
     
 
     lImgEl.setAttribute('src', bus[leftImgIndex].source);
@@ -93,9 +95,51 @@ function handelClicks(event) {
             liEl = document.createElement('li');
             ulEl.appendChild(liEl);
             liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
+            busClicks.push(bus[i].clicks);
+            busViews.push(bus[i].views);
         }
         lImgEl.removeEventListener('click', handelClicks);
         rImgEl.removeEventListener('click', handelClicks);
         rImgEl1.removeEventListener('click', handelClicks);
+
+        chartRender();
     }
+}
+function chartRender() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: busImagesNames,
+            datasets: [{
+                label: '# of Clicks',
+                data: busClicks,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 3
+            }, {
+                label: '# of Views',
+                data: busViews,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth: 3
+            },]
+            
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
