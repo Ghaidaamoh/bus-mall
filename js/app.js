@@ -125,7 +125,6 @@ function handelClicks(event) {
 
     } 
 } 
-
 let viewResult=  document.getElementById('viewResult');
 viewResult.addEventListener('click',results);
 function results(event) {
