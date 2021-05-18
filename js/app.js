@@ -16,8 +16,10 @@ function busImage(busName) {
     this.views = 0;
     bus.push(this);
     busImagesNames.push(this.busName);
-    settingItems() ;
-   
+
+ 
+    settingItems();
+
 }
 function settingItems() {
     let data = JSON.stringify(bus);
@@ -33,6 +35,7 @@ function gettingItems() {
         bus = normalObj;
     }
     renderImg();
+
 }
 
 
@@ -69,11 +72,18 @@ function renderImg() {
       }
       while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
         rightImgIndex = generateImage();
+
     
     }
       while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
         rightImgIndex2 = generateImage();
     
+
+    
+    }
+      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
+        rightImgIndex2 = generateImage();
+
       }
       
     
@@ -112,6 +122,7 @@ function handelClicks(event) {
             bus[rightImgIndex2].clicks++;
         }
         renderImg();
+
     } 
 } 
 
@@ -126,10 +137,10 @@ function results(event) {
         liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
         busClicks.push(bus[i].clicks);
         busViews.push(bus[i].views);
-        
+
     }
     lImgEl.removeEventListener('click', handelClicks);
     rImgEl.removeEventListener('click', handelClicks);
     rImgEl1.removeEventListener('click', handelClicks);
-} 
+}
 gettingItems();
