@@ -16,6 +16,7 @@ function busImage(busName) {
     this.views = 0;
     bus.push(this);
     busImagesNames.push(this.busName);
+
     settingItems();
 }
 function settingItems() {
@@ -31,6 +32,7 @@ function gettingItems() {
         bus = normalObj;
     }
     renderImg();
+
 }
 
 
@@ -104,6 +106,7 @@ function handelClicks(event) {
             bus[rightImgIndex2].clicks++;
         }
         renderImg();
+
     } 
 } 
 
@@ -124,4 +127,3 @@ function results(event) {
     rImgEl1.removeEventListener('click', handelClicks);
 }
 gettingItems();
-
