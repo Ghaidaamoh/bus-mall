@@ -1,10 +1,13 @@
 'use strict';
 let maxAttempts = prompt('please enter the attempt time');
-document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+// document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
 
 let attempts = 0;
 let attemptsEl = document.getElementById('attempts');
 let bus = [];
+let busImagesNames = [];
+let busClicks = [];
+let busViews = [];
 function busImage(busName) {
 
     this.busName = busName.split('.')[0];
@@ -12,6 +15,24 @@ function busImage(busName) {
     this.clicks = 0;
     this.views = 0;
     bus.push(this);
+    busImagesNames.push(this.busName);
+    settingItems() ;
+   
+}
+function settingItems() {
+    let data = JSON.stringify(bus);
+    console.log(data);
+    localStorage.setItem('buses', data);
+
+}
+
+function gettingItems() {
+    let stringObj = localStorage.getItem('buses');
+    let normalObj = JSON.parse(stringObj);
+    if (normalObj !== null) {
+        bus = normalObj;
+    }
+    renderImg();
 }
 
 
@@ -19,11 +40,13 @@ let busImages = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfas
 
 for (let i = 0; i < busImages.length; i++) {
     new busImage(busImages[i]);
+
 }
 
 function generateImage() {
 
     return Math.floor(Math.random() * bus.length);
+    
 }
 
 let lImgEl = document.getElementById('leftImg');
@@ -40,19 +63,19 @@ function renderImg() {
     rightImgIndex = generateImage();
     rightImgIndex2 = generateImage();
 
-    if ( leftImgIndex ==  rightImgIndex && leftImgIndex == rightImgIndex2 )
- {
-    leftImgIndex = generateImage();
- }
- else if ( rightImgIndex ==  leftImgIndex &&  rightImgIndex ==  rightImgIndex2 )
- {
-    rightImgIndex = generateImage();
- }
- else if ( rightImgIndex2  == leftImgIndex  && rightImgIndex2 == rightImgIndex )
- {
-    rightImgIndex2 = generateImage();
- }
+
+    while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2) {
+        leftImgIndex = generateImage();
+      }
+      while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
+        rightImgIndex = generateImage();
     
+    }
+      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
+        rightImgIndex2 = generateImage();
+    
+      }
+      
     
 
     lImgEl.setAttribute('src', bus[leftImgIndex].source);
@@ -68,12 +91,15 @@ function renderImg() {
     rImgEl1.setAttribute('title', bus[rightImgIndex2].source);
     bus[rightImgIndex2].views++;
     attemptsEl.textContent = attempts;
+
 }
+
 renderImg();
 
 lImgEl.addEventListener('click', handelClicks);
 rImgEl.addEventListener('click', handelClicks);
 rImgEl1.addEventListener('click', handelClicks);
+
 function handelClicks(event) {
     attempts++;
     if (attempts <= maxAttempts) {
@@ -86,16 +112,24 @@ function handelClicks(event) {
             bus[rightImgIndex2].clicks++;
         }
         renderImg();
-    } else {
-        let ulEl = document.getElementById('results');
-        let liEl;
-        for (let i = 0; i < bus.length; i++) {
-            liEl = document.createElement('li');
-            ulEl.appendChild(liEl);
-            liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
-        }
-        lImgEl.removeEventListener('click', handelClicks);
-        rImgEl.removeEventListener('click', handelClicks);
-        rImgEl1.removeEventListener('click', handelClicks);
+    } 
+} 
+
+let viewResult=  document.getElementById('viewResult');
+viewResult.addEventListener('click',results);
+function results(event) {
+    let ulEl = document.getElementById('results');
+    let liEl;
+    for (let i = 0; i < bus.length; i++) {
+        liEl = document.createElement('li');
+        ulEl.appendChild(liEl);
+        liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
+        busClicks.push(bus[i].clicks);
+        busViews.push(bus[i].views);
+        
     }
-}
+    lImgEl.removeEventListener('click', handelClicks);
+    rImgEl.removeEventListener('click', handelClicks);
+    rImgEl1.removeEventListener('click', handelClicks);
+} 
+gettingItems();
