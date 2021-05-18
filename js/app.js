@@ -1,6 +1,6 @@
 'use strict';
 let maxAttempts = prompt('please enter the attempt time');
-document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+// document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
 
 let attempts = 0;
 let attemptsEl = document.getElementById('attempts');
@@ -17,12 +17,15 @@ function busImage(busName) {
     bus.push(this);
     busImagesNames.push(this.busName);
 
+ 
     settingItems();
+
 }
 function settingItems() {
     let data = JSON.stringify(bus);
     console.log(data);
     localStorage.setItem('buses', data);
+
 }
 
 function gettingItems() {
@@ -40,11 +43,13 @@ let busImages = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfas
 
 for (let i = 0; i < busImages.length; i++) {
     new busImage(busImages[i]);
+
 }
 
 function generateImage() {
 
     return Math.floor(Math.random() * bus.length);
+    
 }
 
 let lImgEl = document.getElementById('leftImg');
@@ -61,15 +66,24 @@ function renderImg() {
     rightImgIndex = generateImage();
     rightImgIndex2 = generateImage();
 
+
     while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2) {
         leftImgIndex = generateImage();
       }
       while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
         rightImgIndex = generateImage();
+
     
     }
       while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
         rightImgIndex2 = generateImage();
+    
+
+    
+    }
+      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
+        rightImgIndex2 = generateImage();
+
       }
       
     
@@ -87,7 +101,9 @@ function renderImg() {
     rImgEl1.setAttribute('title', bus[rightImgIndex2].source);
     bus[rightImgIndex2].views++;
     attemptsEl.textContent = attempts;
+
 }
+
 renderImg();
 
 lImgEl.addEventListener('click', handelClicks);
@@ -121,9 +137,10 @@ function results(event) {
         liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
         busClicks.push(bus[i].clicks);
         busViews.push(bus[i].views);
+
     }
     lImgEl.removeEventListener('click', handelClicks);
     rImgEl.removeEventListener('click', handelClicks);
     rImgEl1.removeEventListener('click', handelClicks);
-}
+
 gettingItems();
