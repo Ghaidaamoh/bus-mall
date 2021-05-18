@@ -107,7 +107,7 @@ function handelClicks(event) {
     } 
 } 
 
-let viewResult=  document.getElementById('viewResults');
+let viewResult=  document.getElementById('viewResult');
 viewResult.addEventListener('click',results);
 function results(event) {
     let ulEl = document.getElementById('results');
