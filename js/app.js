@@ -16,6 +16,23 @@ function busImage(busName) {
     this.views = 0;
     bus.push(this);
     busImagesNames.push(this.busName);
+
+    settingItems();
+}
+function settingItems() {
+    let data = JSON.stringify(bus);
+    console.log(data);
+    localStorage.setItem('buses', data);
+}
+
+function gettingItems() {
+    let stringObj = localStorage.getItem('buses');
+    let normalObj = JSON.parse(stringObj);
+    if (normalObj !== null) {
+        bus = normalObj;
+    }
+    renderImg();
+
 }
 
 
@@ -76,6 +93,7 @@ renderImg();
 lImgEl.addEventListener('click', handelClicks);
 rImgEl.addEventListener('click', handelClicks);
 rImgEl1.addEventListener('click', handelClicks);
+
 function handelClicks(event) {
     attempts++;
     if (attempts <= maxAttempts) {
@@ -88,6 +106,28 @@ function handelClicks(event) {
             bus[rightImgIndex2].clicks++;
         }
         renderImg();
+
+    } 
+} 
+
+let viewResult=  document.getElementById('viewResult');
+viewResult.addEventListener('click',results);
+function results(event) {
+    let ulEl = document.getElementById('results');
+    let liEl;
+    for (let i = 0; i < bus.length; i++) {
+        liEl = document.createElement('li');
+        ulEl.appendChild(liEl);
+        liEl.textContent = `${bus[i].busName} has ${bus[i].views} views and has ${bus[i].clicks} clicks.`
+        busClicks.push(bus[i].clicks);
+        busViews.push(bus[i].views);
+    }
+    lImgEl.removeEventListener('click', handelClicks);
+    rImgEl.removeEventListener('click', handelClicks);
+    rImgEl1.removeEventListener('click', handelClicks);
+}
+gettingItems();
+
     } else {
         let ulEl = document.getElementById('results');
         let liEl;
@@ -143,3 +183,4 @@ function chartRender() {
         }
     });
 }
+
