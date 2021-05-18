@@ -124,3 +124,4 @@ function results(event) {
     rImgEl1.removeEventListener('click', handelClicks);
 }
 gettingItems();
+
