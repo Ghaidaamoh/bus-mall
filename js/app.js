@@ -125,7 +125,6 @@ function handelClicks(event) {
 
     } 
 } 
-
 let viewResult=  document.getElementById('viewResult');
 viewResult.addEventListener('click',results);
 function results(event) {
@@ -142,5 +141,5 @@ function results(event) {
     lImgEl.removeEventListener('click', handelClicks);
     rImgEl.removeEventListener('click', handelClicks);
     rImgEl1.removeEventListener('click', handelClicks);
-
+}
 gettingItems();
