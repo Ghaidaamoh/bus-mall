@@ -18,7 +18,7 @@ function busImage(busName) {
     busImagesNames.push(this.busName);
 
  
-    settingItems();
+    
 
 }
 function settingItems() {
@@ -34,7 +34,7 @@ function gettingItems() {
     if (normalObj !== null) {
         bus = normalObj;
     }
-    renderImg();
+  renderImg();
 
 }
 
@@ -113,7 +113,7 @@ rImgEl1.addEventListener('click', handelClicks);
 function handelClicks(event) {
     attempts++;
     if (attempts <= maxAttempts) {
-        console.log(event.target.id)
+      
         if (event.target.id === 'leftImg') {
             bus[leftImgIndex].clicks++;
         } else if (event.target.id === 'rightImg') {
@@ -122,7 +122,7 @@ function handelClicks(event) {
             bus[rightImgIndex2].clicks++;
         }
         renderImg();
-
+        settingItems();
     } 
 } 
 let viewResult=  document.getElementById('viewResult');
