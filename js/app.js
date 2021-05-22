@@ -1,6 +1,11 @@
 'use strict';
 let maxAttempts = prompt('please enter the attempt time');
+
+document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+let oldarray=[];
+
 // document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+
 
 let attempts = 0;
 let attemptsEl = document.getElementById('attempts');
@@ -67,9 +72,17 @@ function renderImg() {
     rightImgIndex2 = generateImage();
 
 
+    while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2 || rightImgIndex===rightImgIndex2 ||oldarray[0]=== leftImgIndex || oldarray[0]===rightImgIndex||oldarray[0]===rightImgIndex2 || oldarray[1]=== leftImgIndex ||oldarray[1]=== rightImgIndex ||oldarray[1]=== rightImgIndex2 || oldarray[2]=== leftImgIndex ||oldarray[2]=== rightImgIndex ||oldarray[2]=== rightImgIndex2) {
+
+
     while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2) {
+
         leftImgIndex = generateImage();
+
       }
+
+   
+
       while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
         rightImgIndex = generateImage();
 
@@ -86,6 +99,7 @@ function renderImg() {
 
       }
       
+
     
 
     lImgEl.setAttribute('src', bus[leftImgIndex].source);
@@ -100,7 +114,17 @@ function renderImg() {
     rImgEl1.setAttribute('src', bus[rightImgIndex2].source);
     rImgEl1.setAttribute('title', bus[rightImgIndex2].source);
     bus[rightImgIndex2].views++;
+
+attemptsEl.textContent = attempts;
+ 
+oldarray[0]=leftImgIndex;// =oldarry.push(lefImgIndex)
+oldarray[1]=rightImgIndex;
+oldarray[2]=rightImgIndex2;
+
+
+
     attemptsEl.textContent = attempts;
+
 
 }
 
