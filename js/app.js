@@ -52,6 +52,7 @@ function generateImage() {
     
 }
 
+
 let lImgEl = document.getElementById('leftImg');
 
 let rImgEl = document.getElementById('rightImg');
