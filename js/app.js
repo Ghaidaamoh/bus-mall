@@ -1,6 +1,11 @@
 'use strict';
 let maxAttempts = prompt('please enter the attempt time');
+
+document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+let oldarray=[];
+
 // document.write(`<span id="maxAttempts">number of attempts ${maxAttempts}</span>`);
+
 
 let attempts = 0;
 let attemptsEl = document.getElementById('attempts');
@@ -21,20 +26,20 @@ function busImage(busName) {
     
 
 }
-function settingItems() {
-    let data = JSON.stringify(bus);
-    console.log(data);
-    localStorage.setItem('buses', data);
+function settingItems() {
+    let data = JSON.stringify(bus);
+    console.log(data);
+    localStorage.setItem('buses', data);
 
 }
 
-function gettingItems() {
-    let stringObj = localStorage.getItem('buses');
-    let normalObj = JSON.parse(stringObj);
-    if (normalObj !== null) {
-        bus = normalObj;
-    }
-  renderImg();
+function gettingItems() {
+    let stringObj = localStorage.getItem('buses');
+    let normalObj = JSON.parse(stringObj);
+    if (normalObj !== null) {
+        bus = normalObj;
+    }
+  renderImg();
 
 }
 
@@ -52,7 +57,6 @@ function generateImage() {
     
 }
 
-
 let lImgEl = document.getElementById('leftImg');
 
 let rImgEl = document.getElementById('rightImg');
@@ -67,28 +71,20 @@ function renderImg() {
     rightImgIndex = generateImage();
     rightImgIndex2 = generateImage();
 
+    oldarray[0]=leftImgIndex;// =oldarry.push(lefImgIndex)
+    oldarray[1]=rightImgIndex;
+    oldarray[2]=rightImgIndex2;
 
-    while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2) {
+    while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2 || rightImgIndex===rightImgIndex2 ||oldarray[0]=== leftImgIndex || oldarray[0]===rightImgIndex||oldarray[0]===rightImgIndex2 || oldarray[1]=== leftImgIndex ||oldarray[1]=== rightImgIndex ||oldarray[1]=== rightImgIndex2 || oldarray[2]=== leftImgIndex ||oldarray[2]=== rightImgIndex ||oldarray[2]=== rightImgIndex2) {
         leftImgIndex = generateImage();
-      }
-      while (rightImgIndex === leftImgIndex || rightImgIndex === rightImgIndex2) {
         rightImgIndex = generateImage();
-
-    
-    }
-      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
         rightImgIndex2 = generateImage();
-    
-
-    
     }
-      while (rightImgIndex2 === leftImgIndex || rightImgIndex2 === rightImgIndex) {
-        rightImgIndex2 = generateImage();
-
-      }
-      
+    
+    
     
 
+   
     lImgEl.setAttribute('src', bus[leftImgIndex].source);
     lImgEl.setAttribute('title', bus[leftImgIndex].source);
     bus[leftImgIndex].views++;
@@ -114,7 +110,7 @@ rImgEl1.addEventListener('click', handelClicks);
 function handelClicks(event) {
     attempts++;
     if (attempts <= maxAttempts) {
-      
+        console.log(event.target.id)
         if (event.target.id === 'leftImg') {
             bus[leftImgIndex].clicks++;
         } else if (event.target.id === 'rightImg') {
@@ -126,6 +122,7 @@ function handelClicks(event) {
         settingItems();
     } 
 } 
+
 let viewResult=  document.getElementById('viewResult');
 viewResult.addEventListener('click',results);
 function results(event) {
