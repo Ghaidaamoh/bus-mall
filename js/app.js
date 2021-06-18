@@ -76,12 +76,13 @@ function renderImg() {
     oldarray[2]=rightImgIndex2;
 
     while (leftImgIndex === rightImgIndex || leftImgIndex === rightImgIndex2 || rightImgIndex===rightImgIndex2 ||oldarray[0]=== leftImgIndex || oldarray[0]===rightImgIndex||oldarray[0]===rightImgIndex2 || oldarray[1]=== leftImgIndex ||oldarray[1]=== rightImgIndex ||oldarray[1]=== rightImgIndex2 || oldarray[2]=== leftImgIndex ||oldarray[2]=== rightImgIndex ||oldarray[2]=== rightImgIndex2) {
-        leftImgIndex = generateImage();
-        rightImgIndex = generateImage();
-        rightImgIndex2 = generateImage();
-    }
-    
-    
+ leftImgIndex = generateImage();
+    rightImgIndex = generateImage();
+    rightImgIndex2 = generateImage();
+
+      }
+      
+
     
 
    
@@ -97,7 +98,10 @@ function renderImg() {
     rImgEl1.setAttribute('src', bus[rightImgIndex2].source);
     rImgEl1.setAttribute('title', bus[rightImgIndex2].source);
     bus[rightImgIndex2].views++;
-    attemptsEl.textContent = attempts;
+
+attemptsEl.textContent = attempts;
+ 
+
 
 }
 
