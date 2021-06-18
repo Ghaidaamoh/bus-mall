@@ -4,7 +4,10 @@
   h1 {
     text-align: center;
   
-  
+  }
+
+  body{
+    background-color: rgb(241, 188, 198);
   }
   img {
     display: block;
@@ -35,3 +38,16 @@
     margin-left: 20px;
     font-size: 30px;
   }
+
+  #viewResult{
+    margin-left: 50px;
+   margin-top: 10px;
+  }
+  #results{
+    margin-top: 5px;
+    margin-left: 50px;
+    background-color: brown;
+    display: inline-block;
+  }
+
+  
